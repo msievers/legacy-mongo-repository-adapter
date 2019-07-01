@@ -18,9 +18,9 @@
 
     <profiles>
         <profile>
-            <id>spring-boot-1</id>
+            <id>spring-boot-version</id>
             <properties>
-                <spring.boot.version>1.5.21.RELEASE</spring.boot.version>
+                <spring.boot.version>${env.SPRING_BOOT_VERSION}</spring.boot.version>
             </properties>
             <dependencyManagement>
                 <dependencies>
@@ -37,30 +37,9 @@
                 </dependencies>
             </dependencyManagement>
             <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>spring-boot-2</id>
-            <properties>
-                <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
-            </properties>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-data-mongodb</artifactId>
-                        <version>${spring.boot.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-test</artifactId>
-                        <version>${spring.boot.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-            <activation>
-                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>env.SPRING_BOOT_VERSION</name>
+                </property>
             </activation>
         </profile>
         <!-- GPG Signature on release -->
