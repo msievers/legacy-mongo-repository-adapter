@@ -40,11 +40,13 @@ public interface LegacyMongoRepositoryAdapter<T, ID extends Serializable> extend
         return iterable == null ? 0 : (iterable instanceof Collection) ? ((Collection<?>) iterable).size() : defaultSize;
     }
 
+    @Deprecated
     default void delete(ID id) {
 
         deleteByIdIn(Collections.singletonList(id));
     }
 
+    @Deprecated
     default void delete(Iterable<? extends T> entities) {
 
         for (T entity : entities) {
@@ -54,6 +56,7 @@ public interface LegacyMongoRepositoryAdapter<T, ID extends Serializable> extend
 
     void deleteByIdIn(Iterable<ID> ids);
 
+    @Deprecated
     default boolean exists(ID id) {
 
         return existsById(id);
@@ -61,6 +64,7 @@ public interface LegacyMongoRepositoryAdapter<T, ID extends Serializable> extend
 
     boolean existsById(ID id);
 
+    @Deprecated
     default List<T> findAll(Iterable<ID> ids) {
 
         return findByIdIn(ids);
@@ -70,12 +74,14 @@ public interface LegacyMongoRepositoryAdapter<T, ID extends Serializable> extend
 
     Optional<T> findById(ID id);
 
+    @Deprecated
     default T findOne(ID id) {
 
         return findById(id).orElse(null);
     }
 
     // org.springframework.data.mongodb.repository.support.SimpleMongoRepository.save(java.lang.Iterable<S>)
+    @Deprecated
     default <S extends T> List<S> save(Iterable<S> entities) {
 
         Assert.notNull(entities, "The given Iterable of entities not be null!");
