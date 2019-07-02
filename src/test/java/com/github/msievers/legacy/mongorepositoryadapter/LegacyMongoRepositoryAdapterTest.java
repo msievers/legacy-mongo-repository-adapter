@@ -44,53 +44,10 @@ public class LegacyMongoRepositoryAdapterTest {
             .setName("Charlie");
     }
 
-    private Iterable<Pet> getIterableOfPets() {
-
-        ArrayList<Pet> petList = new ArrayList<>();
-
-        petList.add(getSomePet());
-        petList.add(getSomeOtherPet());
-
-        return petList;
-    }
-
-    private ArrayList<String> getIterableOfIDs(Iterable<Pet> petlist) {
-
-        ArrayList<String> idList = new ArrayList<>();
-
-        for (Pet p : petlist) {
-            idList.add(p.getId());
-        }
-
-        return idList;
-    }
-
-
     private Pet seedPet(Pet pet) {
 
         mongoOperations.save(pet);
         return pet;
-    }
-
-    private Pet seedSomePet() {
-
-        Pet pet = getSomeOtherPet();
-        mongoOperations.save(pet);
-        return pet;
-    }
-
-    private Pet seedSomeOtherPet() {
-
-        Pet pet = getSomeOtherPet();
-        mongoOperations.save(pet);
-        return pet;
-    }
-
-    private Iterable<Pet> seedIterableOfPets(Iterable<Pet> pets) {
-        for (Pet pet : pets) {
-            seedPet(pet);
-        }
-        return pets;
     }
 
     @Before
@@ -105,16 +62,18 @@ public class LegacyMongoRepositoryAdapterTest {
     @Test
     public void deleteWithIdParameterTest() {
 
-        //given
+        // given
         seedPet(getSomePet());
         seedPet(getSomeOtherPet());
 
-        //when
+        // pre-conditions
+        assertThat(petRepository.count(), equalTo(2L));
+
+        // when
         petRepository.delete(getSomePet().getId());
 
-        //then
+        // then
         assertThat(petRepository.count(), equalTo(1L));
-
     }
 
     @Test
@@ -122,8 +81,9 @@ public class LegacyMongoRepositoryAdapterTest {
 
         // given
         Pet somePet = seedPet(getSomePet());
-        Pet someOtherPet = seedPet(getSomeOtherPet());
+        seedPet(getSomeOtherPet());
 
+        // pre-conditions
         assertThat(petRepository.count(), equalTo(2L));
 
         // when
@@ -155,54 +115,49 @@ public class LegacyMongoRepositoryAdapterTest {
     @Test
     public void findAllWithIterableParameterTest() {
 
-        //given
-        seedIterableOfPets(getIterableOfPets());
+        // given
+        Pet somePet = seedPet(getSomePet());
+        Pet someOtherPet = seedPet(getSomeOtherPet());
 
-        //when
-        List<Pet> petList = petRepository.findAll(getIterableOfIDs(getIterableOfPets()));
+        Iterable<String> petIds = getIdsFrom(somePet, someOtherPet);
 
-        //then
+        // when
+        List<Pet> petList = petRepository.findAll(petIds);
+
+        // then
         assertThat(petList.size(), equalTo(2));
-        assertThat(petList.contains(getSomePet()), equalTo(true));
-        assertThat(petList.contains(getSomeOtherPet()), equalTo(true));
+        assertThat(petList.contains(somePet), equalTo(true));
+        assertThat(petList.contains(someOtherPet), equalTo(true));
     }
 
     @Test
     public void testFindAllWithIterableParameter() {
 
         // given
-        Pet seededPet = seedSomePet();
-        List<String> petIds = Stream.of(seededPet).map(Pet::getId).collect(Collectors.toList());
+        Pet seededPet = seedPet(getSomePet());
+        Iterable<String> petIds = getIdsFrom(seededPet);
 
         // when
         List<Pet> pets = petRepository.findAll(petIds);
 
         // then
         assertThat(pets.size(), equalTo(1));
-
     }
 
     /**
      * findOne
      */
-
     @Test
     public void findOneWithIdParameterTest() {
 
         // given
-        Pet somePet = getSomePet();
-        Pet someOtherPet = getSomeOtherPet();
-
-        seedPet(somePet);
-        seedPet(someOtherPet);
+        Pet somePet = seedPet(getSomePet());
 
         // when
         String nameSomePetRepository = petRepository.findOne(somePet.getId()).getName();
-        String nameSomeOtherPetRepository = petRepository.findOne(someOtherPet.getId()).getName();
 
         // then
         assertThat(somePet.getName(), equalTo(nameSomePetRepository));
-        assertThat(someOtherPet.getName(), equalTo(nameSomeOtherPetRepository));
     }
 
     /**
@@ -212,14 +167,24 @@ public class LegacyMongoRepositoryAdapterTest {
     public void saveWithIterableParameterTest() {
 
         // given
-        Collection<Pet> pets = Arrays.asList(getSomeOtherPet(), getSomeOtherPet());
+        Pet somePet = getSomePet();
+        Pet someOtherPet = getSomeOtherPet();
+
+        Iterable<Pet> pets = Arrays.asList(somePet, someOtherPet);
 
         // when
-        Iterable<Pet> savedPets = petRepository.save(pets);
+        List<Pet> savedPets = petRepository.save(pets);
 
         // then
         savedPets.forEach(pet -> {
-            assertThat(pet.getName().equals(getSomePet().getName()) || pet.getName().equals(getSomeOtherPet().getName()), is(true));
+            assertThat(pet.getName().equals(somePet.getName()) || pet.getName().equals(someOtherPet.getName()), is(true));
         });
+    }
+
+    private Iterable<String> getIdsFrom(Pet... pets) {
+
+        return Stream.of(pets)
+            .map(Pet::getId)
+            .collect(Collectors.toList());
     }
 }
