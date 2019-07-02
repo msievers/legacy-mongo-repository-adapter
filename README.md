@@ -1,6 +1,8 @@
 # legacy-mongo-repository-adapter
 
-[![Build Status](https://travis-ci.org/msievers/legacy-mongo-repository-adapter.svg?branch=master)](https://travis-ci.org/msievers/legacy-mongo-repository-adapter) [![Maven Central](https://img.shields.io/maven-central/v/com.github.msievers/legacy-mongo-repository-adapter.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.msievers%22%20AND%20a:%22legacy-mongo-repository-adapter%22)
+[![Build Status](https://travis-ci.org/msievers/legacy-mongo-repository-adapter.svg?branch=master)](https://travis-ci.org/msievers/legacy-mongo-repository-adapter)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.msievers/legacy-mongo-repository-adapter.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.msievers%22%20AND%20a:%22legacy-mongo-repository-adapter%22)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 This adapter is meant is a plugin replacement for `MongoRepository` providing combatibility with Spring Data MongoDB  1.x repository methods. It can be used with either Spring Data MongoDB 1.x or 2.x. When used with a 2.x version, missing methods will be emulated.
 
