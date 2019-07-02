@@ -10,9 +10,7 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,12 +31,14 @@ public class LegacyMongoRepositoryAdapterTest {
     MongoOperations mongoOperations; // we need this to avoid using the repository for setup/teardown tasks
 
     private Pet getSomePet() {
+
         return new Pet()
             .setId("66217398-e519-421f-b9ae-5132127bd0af")
             .setName("Bella");
     }
 
     private Pet getSomeOtherPet() {
+
         return new Pet()
             .setId("fcce4536-0412-4f09-b4e7-19291c0573aa")
             .setName("Charlie");
@@ -52,6 +52,7 @@ public class LegacyMongoRepositoryAdapterTest {
 
     @Before
     public void removeAllPets() {
+
         String collectionName = mongoOperations.getCollectionName(Pet.class);
         mongoOperations.getCollection(collectionName).drop();
     }
