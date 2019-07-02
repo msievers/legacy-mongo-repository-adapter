@@ -1,4 +1,6 @@
-# `legacy-mongo-repository-adapter`
+# legacy-mongo-repository-adapter
+
+[![Build Status](https://travis-ci.org/msievers/legacy-mongo-repository-adapter.svg?branch=master)](https://travis-ci.org/msievers/legacy-mongo-repository-adapter)
 
 This adapter is meant is a plugin replacement for `MongoRepository` providing combatibility with Spring Data MongoDB  1.x repository methods. It can be used with either Spring Data MongoDB 1.x or 2.x. When used with a 2.x version, missing methods will be emulated.
 
