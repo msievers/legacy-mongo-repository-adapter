@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.msievers</groupId>
     <artifactId>legacy-mongo-repository-adapter</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>legacy-mongo-repository-adapter</name>
     <description>Legacy Spring Data Mongo Repository Adapter</description>
     <url>https://github.com/msievers/legacy-mongo-repository-adapter</url>
@@ -219,6 +219,6 @@
         <connection>scm:git:git://github.com/msievers/legacy-mongo-repository-adapter.git</connection>
         <developerConnection>scm:git:git@github.com:msievers/legacy-mongo-repository-adapter.git</developerConnection>
         <url>https://github.com/msievers/legacy-mongo-repository-adapter</url>
-        <tag>v0.0.3</tag>
+        <tag>HEAD</tag>
     </scm>
 </project>
