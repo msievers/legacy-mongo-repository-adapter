@@ -17,7 +17,7 @@ The artifact is hosted on [Maven Central](https://search.maven.org/artifact/com.
 </dependency>
 ```
 
-### Replace `MongoRepository` with `MongoRepositoryAdapter`
+### Replace `MongoRepository` with `LegacyMongoRepositoryAdapter`
 
 ```java
 @Repository
