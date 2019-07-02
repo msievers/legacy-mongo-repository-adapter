@@ -76,7 +76,7 @@ public interface LegacyMongoRepositoryAdapter<T, ID extends Serializable> extend
     }
 
     // org.springframework.data.mongodb.repository.support.SimpleMongoRepository.save(java.lang.Iterable<S>)
-    default <S extends T> List<S> save(Collection<S> entities) {
+    default <S extends T> List<S> save(Iterable<S> entities) {
 
         Assert.notNull(entities, "The given Iterable of entities not be null!");
 
