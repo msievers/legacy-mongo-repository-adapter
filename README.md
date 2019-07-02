@@ -8,6 +8,8 @@ This adapter is meant is a plugin replacement for `MongoRepository` providing co
 
 ### Add dependency
 
+The artifact is hosted on [Maven Central](https://search.maven.org/artifact/com.github.msievers/legacy-mongo-repository-adapter). Just add the following dependency.
+
 ```xml
 <dependency>
     <groupId>com.github.msievers</groupId>
@@ -15,7 +17,7 @@ This adapter is meant is a plugin replacement for `MongoRepository` providing co
 </dependency>
 ```
 
-### Replace `MongoRepository` with `MongoRepositoryAdatper`
+### Replace `MongoRepository` with `MongoRepositoryAdapter`
 
 ```java
 @Repository
